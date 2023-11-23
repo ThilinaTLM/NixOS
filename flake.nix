@@ -20,7 +20,7 @@
       "TLM-NixOS" = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit system; };
         modules = [ 
-          "./nixos/configuration.nix" 
+          "/home/tlm/Projets/NixOS/nixos/configuration.nix" 
         ];
       };
     };

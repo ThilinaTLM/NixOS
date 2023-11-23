@@ -274,12 +274,11 @@
       # Editors & IDEs
       kate
       unstable.vscode-fhs
-      unstable.jetbrains-toolbox
 
       (unstable.jetbrains.plugins.addPlugins unstable.jetbrains.idea-ultimate [ "17718" ])
       (unstable.jetbrains.plugins.addPlugins unstable.jetbrains.webstorm [ "17718" ])
       (unstable.jetbrains.plugins.addPlugins unstable.jetbrains.goland [ "17718" ])
-
+      (unstable.jetbrains.plugins.addPlugins unstable.android-studio [ "17718" ])
 
       # Dev Tools
       unstable.dbeaver
