@@ -15,6 +15,7 @@
         config = config.nixpkgs.config;
       };
     })
+    (import ./overlays/with-copilot.nix)
   ];
 
   # Enable Flakes and the new command-line tool
@@ -274,15 +275,16 @@
       # Editors & IDEs
       kate
       unstable.vscode-fhs
-
-      (unstable.jetbrains.plugins.addPlugins unstable.jetbrains.idea-ultimate [ "17718" ])
-      (unstable.jetbrains.plugins.addPlugins unstable.jetbrains.webstorm [ "17718" ])
-      (unstable.jetbrains.plugins.addPlugins unstable.jetbrains.goland [ "17718" ])
-      (unstable.jetbrains.plugins.addPlugins unstable.android-studio [ "17718" ])
+      unstable.android-studio
+      (pkgs.with-copilot unstable.jetbrains.idea-ultimate)
+      (pkgs.with-copilot unstable.jetbrains.goland)
+      (pkgs.with-copilot unstable.jetbrains.pycharm-professional)
+      (pkgs.with-copilot unstable.jetbrains.webstorm)
 
       # Dev Tools
       unstable.dbeaver
       postman
+      unstable.bun
 
       # Other
       stremio
@@ -299,8 +301,6 @@
       megacmd
     ];
   };
-
-  
 
   # Android
   programs.adb.enable = true;

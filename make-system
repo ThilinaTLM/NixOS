@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-sudo nixos-rebuild switch --flake .#TLM-NixOS --impure
+sudo nixos-rebuild switch --flake .#TLM-NixOS --impure 
