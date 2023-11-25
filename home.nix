@@ -13,6 +13,9 @@ in {
           vscode = unstable.vscode;
           vscode-extensions = unstable.vscode-extensions;
           eza = unstable.eza;
+          dbeaver = unstable.dbeaver;
+          bun = unstable.bun;
+          neovim = unstable.neovim-unwrapped;
         })
       ];
     };
@@ -35,21 +38,19 @@ in {
       eza
       fzf
       megacmd
-    ];
 
-    # programs.eza = {
-    #   enable = true;
-    #   git = true;
-    #   icons = true;
-    #   enableAliases = true;
-    # };
+      # Dev Tools
+      dbeaver
+      postman
+      bun
+    ];
 
     programs.git = {
       enable = true;
       package = pkgs.gitFull;
       userName = "Thilina Lakshan";
       userEmail = "thilina.18@cse.mrt.ac.lk";
-      extraConfig = { 
+      extraConfig = {
         init.defaultBranch = "main";
       };
     };
@@ -72,14 +73,42 @@ in {
         pkief.material-icon-theme
         foxundermoon.shell-format
       ];
-      userSettings = {
-        "workbench.colorTheme" = "Default Dark Modern";
-        "workbench.iconTheme" = "material-icon-theme";
-        "editor.inlineSuggest.enabled" = true;
-        "files.autoSave" = "afterDelay";
-        "editor.fontFamily" =
-          "'IosevkaTerm Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
-      };
+      userSettings = (import ./vscode).userSettings;
+      keybindings = (import ./vscode).keybindings;
+    };
+
+    programs.neovim = {
+      enable = true;
+      package = pkgs.neovim;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+      withNodeJs = true;
+      withPython3 = true;
+      extraConfig =
+        let
+          vimFiles = lib.filterAttrs (name: type: lib.hasSuffix ".vim" name) (builtins.readDir ./neovim);
+          vimFileNames = lib.attrNames vimFiles;
+          vimConfigs = builtins.map builtins.readFile (map (path: builtins.path { name = path; path = ./neovim + "/${path}"; }) vimFileNames);
+        in
+        lib.concatStringsSep "\n" (vimConfigs ++ [
+          "colorscheme gruvbox-material"
+        ]);
+      extraLuaConfig = ''
+        require'nvim-treesitter.configs'.setup {
+          highlight = {
+            enable = true,
+          },
+          indent = {
+            enable = true  -- Enable Tree-sitter-based indentation
+          }
+        }
+      '';
+      plugins = with pkgs.vimPlugins; [
+        nvim-treesitter.withAllGrammars
+        gruvbox-material
+      ];
     };
 
     programs.starship = {
@@ -105,7 +134,7 @@ in {
 
         # system
         cat = "bat";
-        ls = "eza --icons --git-repos --group-directories-first";
+        ls = "eza --icons --group-directories-first";
 
         # git 
         gcm = "git commit -m ";
@@ -134,6 +163,5 @@ in {
         eval "$(starship init zsh)"
       '';
     };
-
   };
 }

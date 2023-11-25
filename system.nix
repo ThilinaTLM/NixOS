@@ -178,32 +178,6 @@
 
   # USER CONFIGURATION ---------------------------------------------------------
 
-  # Neovim
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    vimAlias = true;
-    withNodeJs = true;
-    withPython3 = true;
-    configure = {
-      customRC = ''
-        set tabstop=2
-        set shiftwidth=2
-        set expandtab
-        set autoindent
-        set smartindent
-        set smarttab
-        set number
-        set relativenumber
-        set showmatch
-        set incsearch
-        set hlsearch
-        set ignorecase
-        set smartcase
-      '';
-    };
-  };
-
   # Zsh
   programs.zsh.enable = true;
   users.users.tlm.shell = pkgs.zsh;
@@ -230,11 +204,6 @@
       (pkgs.with-copilot unstable.jetbrains.goland)
       (pkgs.with-copilot unstable.jetbrains.pycharm-professional)
       (pkgs.with-copilot unstable.jetbrains.webstorm)
-
-      # Dev Tools
-      unstable.dbeaver
-      postman
-      unstable.bun
     ];
   };
 
