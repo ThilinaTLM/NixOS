@@ -8,8 +8,17 @@
   outputs = { self, nixpkgs }: 
   let 
     system = "x86_64-linux";
+    overlays = [
+      (import ./overlays/with-copilot.nix)
+      (self: super: {
+        unstable = import <nixos-unstable> {
+          config = config.nixpkgs.config;
+        };
+      })
+    ];
     pkgs = import nixpkgs { 
       inherit system;
+      inherit overlays;
       config = { 
         allowUnfree = true; 
       };
