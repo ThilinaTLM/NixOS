@@ -6,11 +6,8 @@
 
   nixpkgs.overlays = [
     (import ./overlays/with-copilot.nix)
-    # Add unstable branch
     (self: super: {
-      unstable = import <nixos-unstable> {
-        config = config.nixpkgs.config;
-      };
+      unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
     })
   ];
 
@@ -35,9 +32,7 @@
   };
 
   # Swap
-  boot.kernel.sysctl = {
-    "vm.swappiness" = 60;
-  };
+  boot.kernel.sysctl = { "vm.swappiness" = 60; };
 
   # Enable OpenGL
   nixpkgs.config.packageOverrides = pkgs: {
@@ -141,9 +136,7 @@
 
   # Android
   programs.adb.enable = true;
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
+  services.udev.packages = [ pkgs.android-udev-rules ];
 
   # GnuPg
   services.pcscd.enable = true;
@@ -177,9 +170,8 @@
     jdk17
   ];
 
-  fonts.fonts = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "IosevkaTerm" ]; })
-  ];
+  fonts.fonts = with pkgs;
+    [ (nerdfonts.override { fonts = [ "FiraCode" "IosevkaTerm" ]; }) ];
 
   system.stateVersion = "23.05";
 
@@ -189,9 +181,7 @@
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
-    config = {
-      init.defaultBranch = "main";
-    };
+    config = { init.defaultBranch = "main"; };
   };
 
   # Neovim
@@ -248,7 +238,13 @@
     };
     interactiveShellInit = ''
       # z plugin for jumps around
-      source ${pkgs.fetchurl {url = "https://github.com/rupa/z/raw/2ebe419ae18316c5597dd5fb84b5d8595ff1dde9/z.sh"; sha256 = "0ywpgk3ksjq7g30bqbhl9znz3jh6jfg8lxnbdbaiipzgsy41vi10";}}
+      source ${
+        pkgs.fetchurl {
+          url =
+            "https://github.com/rupa/z/raw/2ebe419ae18316c5597dd5fb84b5d8595ff1dde9/z.sh";
+          sha256 = "0ywpgk3ksjq7g30bqbhl9znz3jh6jfg8lxnbdbaiipzgsy41vi10";
+        }
+      }
 
       # create a new git branch
       function git_new_branch() {
@@ -316,7 +312,6 @@
 
       # Editors & IDEs
       kate
-      unstable.vscode-fhs
       unstable.android-studio
       (pkgs.with-copilot unstable.jetbrains.idea-ultimate)
       (pkgs.with-copilot unstable.jetbrains.goland)
