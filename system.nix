@@ -1,11 +1,10 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, nixpkgs-stable, ... }:
 {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   nixpkgs.overlays = [
-    (import ./overlays/with-copilot.nix)
+    (import ./jetbrains/with-copilot.nix)
     (self: super: {
       unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
     })
@@ -171,10 +170,11 @@
     gnumake
   ];
 
-  fonts.fonts = with pkgs;
-    [ (nerdfonts.override { fonts = [ "FiraCode" "IosevkaTerm" ]; }) ];
+  fonts.packages = with pkgs; [ 
+    (nerdfonts.override { fonts = [ "FiraCode" "IosevkaTerm" ]; }) 
+  ];
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 
   # USER CONFIGURATION ---------------------------------------------------------
 

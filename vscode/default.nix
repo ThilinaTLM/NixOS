@@ -4,8 +4,8 @@
     "workbench.iconTheme" = "material-icon-theme";
     "editor.inlineSuggest.enabled" = true;
     "files.autoSave" = "afterDelay";
-    "editor.fontFamily" =
-      "'IosevkaTerm Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
+    "update.mode" = "none";
+    "editor.fontFamily" = "'IosevkaTerm Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
   };
   keybindings = [
     {
