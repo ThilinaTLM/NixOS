@@ -45,21 +45,19 @@
 
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode;
+    package = unstablePkgs.vscode;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
-    extensions = with pkgs.vscode-extensions; [
-      yzhang.markdown-all-in-one
+    extensions = with unstablePkgs.vscode-extensions; [
       github.copilot
-      github.copilot-chat
       bbenoist.nix
       jnoortheen.nix-ide
       pkief.material-icon-theme
       ms-vscode.makefile-tools
       foxundermoon.shell-format
     ];
-    userSettings = (import ./vscode).userSettings;
-    keybindings = (import ./vscode).keybindings;
+    userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
+    keybindings = builtins.fromJSON (builtins.readFile ./vscode/keybindings.json);
   };
 
   programs.neovim = {

@@ -1,0 +1,16 @@
+[
+    {
+        "command": "-workbench.action.togglePanel",
+        "key": "ctrl+j"
+    },
+    {
+        "command": "editor.action.inlineSuggest.commit",
+        "key": "ctrl+j",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    {
+        "command": "-editor.action.inlineSuggest.commit",
+        "key": "tab",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+    }
+]
