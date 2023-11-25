@@ -11,6 +11,7 @@ let
         ideName =  idePkg.pname;
       in 
         ''
+          mkdir -p $out/${ideName}/plugins
           unzip ${plugin} -d $out/${ideName}/plugins
           agent="$out/${ideName}/plugins/github-copilot-intellij/copilot-agent/bin/copilot-agent-linux"
           orig_size=$(stat --printf=%s $agent)

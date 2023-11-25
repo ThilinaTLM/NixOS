@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ 
-    ./hardware-configuration.nix 
-  ];
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -20,11 +16,11 @@
 
   # Enable Flakes and the new command-line tool
   nix = {
-  package = pkgs.nixFlakes;
-  extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
-};
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 
   # File systems
   boot.supportedFilesystems = [ "ntfs" ];
