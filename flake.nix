@@ -15,15 +15,26 @@
     let
       system = "x86_64-linux";
       userName = "tlm";
+      pkgs = import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+        };
+      };
       stablePkgs = import nixpkgs-stable {
+        inherit system;
         config = {
           allowUnfree = true;
         };
       };
       unstablePkgs = import nixpkgs-unstable {
+        inherit system;
         config = {
           allowUnfree = true;
         };
+        overlays = [
+          (import ./jetbrains/with-copilot.nix)
+        ];
       };
     in {
       nixosConfigurations = {

@@ -26,6 +26,13 @@
     dbeaver
     stablePkgs.postman
     bun
+    mongodb-compass
+
+    unstablePkgs.android-studio
+    (unstablePkgs.with-copilot unstablePkgs.jetbrains.idea-ultimate)
+    (unstablePkgs.with-copilot unstablePkgs.jetbrains.goland)
+    (unstablePkgs.with-copilot unstablePkgs.jetbrains.pycharm-professional)
+    (unstablePkgs.with-copilot unstablePkgs.jetbrains.webstorm)
   ];
 
   programs.git = {

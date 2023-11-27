@@ -1,14 +1,6 @@
-{ config, pkgs, nixpkgs-stable, ... }:
+{ config, pkgs, stablePkgs, unstablePkgs, ... }:
 {
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  nixpkgs.overlays = [
-    (import ./jetbrains/with-copilot.nix)
-    (self: super: {
-      unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
-    })
-  ];
 
   # Enable Flakes and the new command-line tool
   nix = {
@@ -168,6 +160,7 @@
     nodejs_18
     jdk17
     gnumake
+    openssl
   ];
 
   fonts.packages = with pkgs; [ 
@@ -188,22 +181,11 @@
     description = "Thilina Lakshan";
     extraGroups = [ "networkmanager" "wheel" "adbusers" "docker" ];
     packages = with pkgs; [
-      # Basics
-      # starship
       libsForQt5.yakuake
-
-      # Browsers
       firefox
       brave
       google-chrome
-
-      # Editors & IDEs
       kate
-      unstable.android-studio
-      (pkgs.with-copilot unstable.jetbrains.idea-ultimate)
-      (pkgs.with-copilot unstable.jetbrains.goland)
-      (pkgs.with-copilot unstable.jetbrains.pycharm-professional)
-      (pkgs.with-copilot unstable.jetbrains.webstorm)
     ];
   };
 
