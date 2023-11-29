@@ -57,11 +57,18 @@
     enableExtensionUpdateCheck = false;
     extensions = with unstablePkgs.vscode-extensions; [
       github.copilot
-      bbenoist.nix
       jnoortheen.nix-ide
       pkief.material-icon-theme
       ms-vscode.makefile-tools
       foxundermoon.shell-format
+      ms-python.python
+      ms-azuretools.vscode-docker
+      esbenp.prettier-vscode
+      streetsidesoftware.code-spell-checker
+      dbaeumer.vscode-eslint
+      formulahendry.auto-rename-tag
+      # visualstudioexptteam.vscodeintellicode
+      formulahendry.code-runner
     ];
     userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
     keybindings = builtins.fromJSON (builtins.readFile ./vscode/keybindings.json);
