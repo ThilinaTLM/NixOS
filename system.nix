@@ -140,15 +140,17 @@
   # kdeconnect
   programs.kdeconnect.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # Virtualisation
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
+
+  # System packages
   environment.systemPackages = with pkgs; [
     os-prober
     wget
     curl
-    aria2
     gitFull
-    gh
     lshw
     pciutils
     fwupd
@@ -183,9 +185,10 @@
     packages = with pkgs; [
       libsForQt5.yakuake
       firefox
-      brave
+      stablePkgs.brave
       google-chrome
       kate
+      libreoffice-qt
     ];
   };
 

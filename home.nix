@@ -1,5 +1,7 @@
 { config, lib, pkgs, stablePkgs, unstablePkgs, ... }:
-
+let 
+  username = "tlm";
+in
 {
   home.stateVersion = "23.11";
 
@@ -7,6 +9,7 @@
     # Utilities
     nixpkgs-fmt
     nixfmt
+    aria2
 
     # Multimedia
     stremio
@@ -25,15 +28,21 @@
     # Dev Tools
     dbeaver
     stablePkgs.postman
-    bun
     mongodb-compass
-
+    gh
     unstablePkgs.android-studio
     (unstablePkgs.with-copilot unstablePkgs.jetbrains.idea-ultimate)
     (unstablePkgs.with-copilot unstablePkgs.jetbrains.goland)
     (unstablePkgs.with-copilot unstablePkgs.jetbrains.pycharm-professional)
     (unstablePkgs.with-copilot unstablePkgs.jetbrains.webstorm)
+    (unstablePkgs.with-copilot unstablePkgs.jetbrains.rust-rover)
+
+    # Languages and Runtimes
+    rustup
+    bun
   ];
+
+
 
   programs.git = {
     enable = true;
@@ -48,6 +57,30 @@
   programs.gh = {
     enable = true;
     extensions = [ pkgs.gh-dash ];
+  };
+
+  programs.aria2 = {
+    enable = true;
+    settings = {
+      enable-rpc = true;
+      rpc-listen-all = true;
+      max-concurrent-downloads = 4;
+      dir = "/home/${username}/Downloads";
+    };
+  };
+
+  systemd.user.services = {
+    aria2 = {
+      Unit = {
+        Description = "Aria2c Daemon";
+        After = "network.target";
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.aria2}/bin/aria2c --conf-path=${config.home.homeDirectory}/.config/aria2/aria2.conf";
+        Restart = "on-failure";
+      };
+    };
   };
 
   programs.vscode = {
