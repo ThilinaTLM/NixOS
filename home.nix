@@ -90,6 +90,7 @@ in
     enableExtensionUpdateCheck = false;
     extensions = with unstablePkgs.vscode-extensions; [
       github.copilot
+      github.copilot-chat
       jnoortheen.nix-ide
       pkief.material-icon-theme
       ms-vscode.makefile-tools

@@ -163,6 +163,8 @@
     jdk17
     gnumake
     openssl
+    gcc-unwrapped
+    nix-index
   ];
 
   fonts.packages = with pkgs; [ 
