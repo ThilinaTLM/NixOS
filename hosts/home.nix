@@ -24,18 +24,19 @@ in
     eza
     fzf
     megacmd
+    pipenv
 
     # Dev Tools
     dbeaver
-    stablePkgs.postman
+    postman
     mongodb-compass
     gh
     unstablePkgs.android-studio
-    (unstablePkgs.with-copilot unstablePkgs.jetbrains.idea-ultimate)
-    (unstablePkgs.with-copilot unstablePkgs.jetbrains.goland)
-    (unstablePkgs.with-copilot unstablePkgs.jetbrains.pycharm-professional)
-    (unstablePkgs.with-copilot unstablePkgs.jetbrains.webstorm)
-    (unstablePkgs.with-copilot unstablePkgs.jetbrains.rust-rover)
+    (with-copilot jetbrains.idea-ultimate)
+    # (unstablePkgs.with-copilot unstablePkgs.jetbrains.goland)
+    (with-copilot jetbrains.pycharm-professional)
+    (with-copilot jetbrains.webstorm)
+    # (unstablePkgs.with-copilot unstablePkgs.jetbrains.rust-rover)
 
     # Languages and Runtimes
     rustup
@@ -104,8 +105,8 @@ in
       # visualstudioexptteam.vscodeintellicode
       formulahendry.code-runner
     ];
-    userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
-    keybindings = builtins.fromJSON (builtins.readFile ./vscode/keybindings.json);
+    userSettings = builtins.fromJSON (builtins.readFile ./configs/vscode/settings.json);
+    keybindings = builtins.fromJSON (builtins.readFile ./configs/vscode/keybindings.json);
   };
 
   programs.neovim = {
@@ -119,9 +120,9 @@ in
     withPython3 = true;
     extraConfig =
       let
-        vimFiles = lib.filterAttrs (name: type: lib.hasSuffix ".vim" name) (builtins.readDir ./neovim);
+        vimFiles = lib.filterAttrs (name: type: lib.hasSuffix ".vim" name) (builtins.readDir ./configs/neovim);
         vimFileNames = lib.attrNames vimFiles;
-        vimConfigs = builtins.map builtins.readFile (map (path: builtins.path { name = path; path = ./neovim + "/${path}"; }) vimFileNames);
+        vimConfigs = builtins.map builtins.readFile (map (path: builtins.path { name = path; path = ./configs/neovim + "/${path}"; }) vimFileNames);
       in
       lib.concatStringsSep "\n" (vimConfigs ++ [
         "colorscheme gruvbox-material"
@@ -146,7 +147,7 @@ in
     enable = true;
     enableZshIntegration = true;
     package = pkgs.starship;
-    settings = (import ./shell/starship.nix lib).settings;
+    settings = (import ./configs/shell/starship.nix lib).settings;
   };
 
   # Shell configuration, ZSH
@@ -188,7 +189,7 @@ in
       }
 
       # utility functions
-      ${builtins.readFile ./shell/functions.zsh}
+      ${builtins.readFile ./configs/shell/functions.zsh}
 
       # prompt init
       eval "$(starship init zsh)"

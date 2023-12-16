@@ -20,6 +20,9 @@
         config = {
           allowUnfree = true;
         };
+        overlays = [
+          (import ./modules/jetbrains/with-copilot.nix)
+        ];
       };
       stablePkgs = import nixpkgs-stable {
         inherit system;
@@ -32,26 +35,23 @@
         config = {
           allowUnfree = true;
         };
-        overlays = [
-          (import ./jetbrains/with-copilot.nix)
-        ];
       };
     in {
       nixosConfigurations = {
         "TLM-NixOS" = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit stablePkgs unstablePkgs;
+            inherit pkgs stablePkgs unstablePkgs;
           };
           modules = [
-            ./hardware.nix
-            ./system.nix
+            ./hosts/hardware.nix
+            ./hosts/system.nix
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.${userName} = import ./home.nix;
+              home-manager.users.${userName} = import ./hosts/home.nix;
               home-manager.extraSpecialArgs = {
-                inherit stablePkgs unstablePkgs;
+                inherit pkgs stablePkgs unstablePkgs;
               };
             }
           ];

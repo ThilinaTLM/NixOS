@@ -156,15 +156,18 @@
     fwupd
     gnupg
     pinentry-gtk2
+    nix-index
+    openssl
+    
     docker
     docker-compose
-    python312
+
+    python311
+    python311Packages.pip
     nodejs_18
     jdk17
     gnumake
-    openssl
     gcc-unwrapped
-    nix-index
   ];
 
   fonts.packages = with pkgs; [ 
