@@ -79,7 +79,7 @@
       "version": "2023.3.1",
       "sha256": "95a03ad8abf2400e9691bb10b13d47407abfcbc25192cf3773e1a2dab42c0499",
       "url": "https://download.jetbrains.com/python/pycharm-community-2023.3.1.tar.gz",
-      "build_number": "233.11799.298"
+      "build_number": "233.11799.300"
     },
     "pycharm-professional": {
       "update-channel": "PyCharm RELEASE",
