@@ -32,8 +32,8 @@ in
     mongodb-compass
     gh
     unstablePkgs.android-studio
-    (with-copilot self.packages.jetbrainsCustom.idea-ultimate)
-    (with-copilot self.packages.jetbrainsCustom.webstorm) 
+    self.packages.jetbrainsCustom.idea-ultimate
+    self.packages.jetbrainsCustom.webstorm
     # (with-copilot unstablePkgs.jetbrains.rust-rover)
     # (with-copilot jetbrains.goland)
     # jetbrains.pycharm-professional
