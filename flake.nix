@@ -21,7 +21,7 @@
           allowUnfree = true;
         };
         overlays = [
-          (import ./modules/jetbrains/with-copilot.nix)
+          (import ./modules/jetbrains/overlay.nix)
         ];
       };
       stablePkgs = import nixpkgs-stable {
@@ -37,6 +37,14 @@
         };
       };
     in {
+      packages = {
+        jetbrainsCustom = import ./modules/jetbrains/default.nix {
+          inherit pkgs;
+        };
+        postmanCustom = import ./modules/postman/default.nix {
+          inherit pkgs;
+        };
+      };
       nixosConfigurations = {
         "TLM-NixOS" = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -51,7 +59,7 @@
               home-manager.useUserPackages = true;
               home-manager.users.${userName} = import ./hosts/home.nix;
               home-manager.extraSpecialArgs = {
-                inherit pkgs stablePkgs unstablePkgs;
+                inherit pkgs stablePkgs unstablePkgs self;
               };
             }
           ];

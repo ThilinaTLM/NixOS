@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stablePkgs, unstablePkgs, ... }:
+{ config, lib, pkgs, stablePkgs, unstablePkgs, self, ... }:
 let 
   username = "tlm";
 in
@@ -28,15 +28,15 @@ in
 
     # Dev Tools
     dbeaver
-    postman
+    self.packages.postmanCustom
     mongodb-compass
     gh
     unstablePkgs.android-studio
-    (with-copilot jetbrains.idea-ultimate)
-    # (unstablePkgs.with-copilot unstablePkgs.jetbrains.goland)
-    (with-copilot jetbrains.pycharm-professional)
-    (with-copilot jetbrains.webstorm)
-    # (unstablePkgs.with-copilot unstablePkgs.jetbrains.rust-rover)
+    (with-copilot self.packages.jetbrainsCustom.idea-ultimate)
+    (with-copilot self.packages.jetbrainsCustom.webstorm) 
+    # (with-copilot unstablePkgs.jetbrains.rust-rover)
+    # (with-copilot jetbrains.goland)
+    # jetbrains.pycharm-professional
 
     # Languages and Runtimes
     rustup
