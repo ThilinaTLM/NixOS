@@ -1,6 +1,7 @@
 { config, lib, pkgs, stablePkgs, unstablePkgs, self, ... }:
 let 
   username = "tlm";
+  configNeovim = ./configs/neovim;
 in
 {
   home.stateVersion = "23.11";
@@ -32,17 +33,13 @@ in
     mongodb-compass
     gh
     unstablePkgs.android-studio
-    self.packages.jetbrainsCustom.idea-ultimate
-    self.packages.jetbrainsCustom.webstorm
-    # (with-copilot unstablePkgs.jetbrains.rust-rover)
-    # (with-copilot jetbrains.goland)
-    # jetbrains.pycharm-professional
+    (self.packages.jetbrainsCustom.plugins.addPlugins self.packages.jetbrainsCustom.idea-ultimate [ "17718" ])
+    (self.packages.jetbrainsCustom.plugins.addPlugins self.packages.jetbrainsCustom.webstorm [ "17718" ])
 
     # Languages and Runtimes
     rustup
     bun
   ];
-
 
 
   programs.git = {
@@ -102,7 +99,6 @@ in
       streetsidesoftware.code-spell-checker
       dbaeumer.vscode-eslint
       formulahendry.auto-rename-tag
-      # visualstudioexptteam.vscodeintellicode
       formulahendry.code-runner
     ];
     userSettings = builtins.fromJSON (builtins.readFile ./configs/vscode/settings.json);
@@ -118,29 +114,33 @@ in
     vimdiffAlias = true;
     withNodeJs = true;
     withPython3 = true;
+    plugins = with pkgs.vimPlugins; [
+      plenary-nvim
+      nvim-treesitter.withAllGrammars
+      gruvbox-material
+      copilot-lua
+      telescope-nvim
+      telescope-file-browser-nvim
+    ];
     extraConfig =
       let
-        vimFiles = lib.filterAttrs (name: type: lib.hasSuffix ".vim" name) (builtins.readDir ./configs/neovim);
+        vimFiles = lib.filterAttrs (name: type: lib.hasSuffix ".vim" name) (builtins.readDir configNeovim);
         vimFileNames = lib.attrNames vimFiles;
-        vimConfigs = builtins.map builtins.readFile (map (path: builtins.path { name = path; path = ./configs/neovim + "/${path}"; }) vimFileNames);
+        vimConfigs = builtins.map builtins.readFile (map (path: builtins.path { name = path; path = configNeovim + "/${path}"; }) vimFileNames);
       in
       lib.concatStringsSep "\n" (vimConfigs ++ [
         "colorscheme gruvbox-material"
       ]);
-    extraLuaConfig = ''
-      require'nvim-treesitter.configs'.setup {
-        highlight = {
-          enable = true,
-        },
-        indent = {
-          enable = true  -- Enable Tree-sitter-based indentation
-        }
-      }
-    '';
-    plugins = with pkgs.vimPlugins; [
-      nvim-treesitter.withAllGrammars
-      gruvbox-material
-    ];
+    extraLuaConfig = 
+      let
+        luaFiles = lib.filterAttrs (name: type: lib.hasSuffix ".lua" name) (builtins.readDir configNeovim);
+        luaFileNames = lib.attrNames luaFiles;
+        luaConfigs = builtins.map builtins.readFile (map (path: builtins.path { name = path; path = configNeovim + "/${path}"; }) luaFileNames);
+      in
+      lib.concatStringsSep "\n" (luaConfigs ++ [
+      ''
+      ''
+      ]);
   };
 
   programs.starship = {

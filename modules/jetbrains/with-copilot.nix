@@ -1,9 +1,9 @@
 self: super:
 let 
-    pluginUrl = "https://plugins.jetbrains.com/files/17718/440843/github-copilot-intellij-1.4.2.3864.zip?updateId=440843&pluginId=17718&family=INTELLIJ";
+    pluginUrl = "https://plugins.jetbrains.com/files/17718/454005/github-copilot-intellij-1.4.5.4049.zip?updateId=454005&pluginId=17718&family=INTELLIJ";
     plugin = super.fetchurl {
       url = pluginUrl;
-      sha256 = "sha256-A9IJ5QYuWczjQXdovvqJO3Tv5sU7FITAjzidDSjPfh0=";
+      sha256 = "sha256-ibu3OcmtyLHuumhJQ6QipsNEIdEhvLUS7sb3xmnaR0U=";
     };
     libPath = super.lib.makeLibraryPath [super.glibc super.gcc-unwrapped];
     modifyIDE = idePkg: idePkg.overrideAttrs (oldAttrs: {

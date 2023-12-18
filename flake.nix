@@ -20,15 +20,6 @@
         config = {
           allowUnfree = true;
         };
-        overlays = [
-          (import ./modules/jetbrains/overlay.nix)
-        ];
-      };
-      stablePkgs = import nixpkgs-stable {
-        inherit system;
-        config = {
-          allowUnfree = true;
-        };
       };
       unstablePkgs = import nixpkgs-unstable {
         inherit system;
