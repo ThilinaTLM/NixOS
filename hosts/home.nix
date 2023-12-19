@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stablePkgs, unstablePkgs, self, ... }:
+{ config, lib, pkgs, unstablePkgs, self, ... }:
 let 
   username = "tlm";
   configNeovim = ./configs/neovim;

@@ -40,7 +40,7 @@
         "TLM-NixOS" = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit pkgs stablePkgs unstablePkgs;
+            inherit pkgs unstablePkgs;
           };
           modules = [
             ./hosts/hardware.nix
@@ -50,7 +50,7 @@
               home-manager.useUserPackages = true;
               home-manager.users.${userName} = import ./hosts/home.nix;
               home-manager.extraSpecialArgs = {
-                inherit pkgs stablePkgs unstablePkgs self;
+                inherit pkgs unstablePkgs self;
               };
             }
           ];

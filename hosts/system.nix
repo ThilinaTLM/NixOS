@@ -1,4 +1,4 @@
-{ config, pkgs, stablePkgs, unstablePkgs, ... }:
+{ config, pkgs, unstablePkgs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -170,9 +170,29 @@
     gcc-unwrapped
   ];
 
-  fonts.packages = with pkgs; [ 
-    (nerdfonts.override { fonts = [ "FiraCode" "IosevkaTerm" ]; }) 
-  ];
+  fonts = {
+    packages = with pkgs; [ 
+      (nerdfonts.override { fonts = [ "FiraCode" "IosevkaTerm" ]; }) 
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-cjk
+      open-sans
+      corefonts
+      vistafonts
+    ];
+    fontconfig = {
+      enable = true;
+      antialias = true;
+      hinting = {
+        enable = true;
+        style = "full";
+        autohint = true;
+      };
+      subpixel = {
+        rgba = "rgb";
+      };
+    };
+  };
 
   system.stateVersion = "23.11";
 
@@ -190,7 +210,7 @@
     packages = with pkgs; [
       libsForQt5.yakuake
       firefox
-      stablePkgs.brave
+      brave
       google-chrome
       kate
       libreoffice-qt
