@@ -144,7 +144,6 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
-
   # System packages
   environment.systemPackages = with pkgs; [
     os-prober
@@ -179,6 +178,7 @@
       open-sans
       corefonts
       vistafonts
+      ubuntu_font_family
     ];
     fontconfig = {
       enable = true;

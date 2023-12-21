@@ -159,11 +159,6 @@ in
     enableVteIntegration = true;
     historySubstringSearch.enable = true;
     shellAliases = {
-      # nix
-      configure = "sudo nvim /etc/nixos/configuration.nix";
-      update = "sudo nix-channel --update";
-      rebuild = "sudo nixos-rebuild switch";
-
       # system
       cat = "bat";
       ls = "eza --icons --group-directories-first";
@@ -194,5 +189,17 @@ in
       # prompt init
       eval "$(starship init zsh)"
     '';
+    plugins = [
+      {
+        name = "zsh-nix-shell";
+        file = "nix-shell.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "chisui";
+          repo = "zsh-nix-shell";
+          rev = "v0.7.0";
+          sha256 = "149zh2rm59blr2q458a5irkfh82y3dwdich60s9670kl3cl5h2m1";
+        };
+      }
+    ];
   };
 }
