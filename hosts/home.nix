@@ -39,6 +39,25 @@ in
     # Languages and Runtimes
     rustup
     bun
+
+    # Python with packages
+    (python311.withPackages (ps: with ps; [
+      pip
+      pipenv
+      black
+      isort
+      flake8
+      mypy
+      pylint
+      autopep8
+      yapf
+      pynvim
+
+      numpy
+      pandas
+      matplotlib
+    ]))
+
   ];
 
 

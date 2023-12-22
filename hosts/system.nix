@@ -1,7 +1,5 @@
 { config, pkgs, unstablePkgs, ... }:
 {
-  nixpkgs.config.allowUnfree = true;
-
   # Enable Flakes and the new command-line tool
   nix = {
     package = pkgs.nixFlakes;
@@ -161,8 +159,10 @@
     docker
     docker-compose
 
+    # Python Packages
     python311
     python311Packages.pip
+
     nodejs_18
     jdk17
     gnumake
