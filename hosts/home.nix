@@ -34,7 +34,7 @@ in
     gh
     unstablePkgs.android-studio
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.idea-ultimate [ "17718" ])
-    (self.packages.jetbrainsCustom.plugins.addPlugins self.packages.jetbrainsCustom.webstorm [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.webstorm [ "17718" ])
 
     # Languages and Runtimes
     rustup

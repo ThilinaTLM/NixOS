@@ -29,9 +29,6 @@
       };
     in {
       packages = {
-        jetbrainsCustom = import ./modules/jetbrains/default.nix {
-          inherit pkgs;
-        };
         postmanCustom = import ./modules/postman/default.nix {
           inherit pkgs;
         };
