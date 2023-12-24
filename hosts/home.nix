@@ -14,7 +14,6 @@ in
 
     # Multimedia
     stremio
-    mpv
     obs-studio
     zoom-us
     slack
@@ -220,5 +219,17 @@ in
         };
       }
     ];
+  };
+
+  programs.mpv = {
+    enable = true;
+    config = {
+      save-position-on-quit = true;
+      cache = "yes";
+      cache-on-disk = "yes";
+      demuxer-max-bytes = "4096MiB";
+      demuxer-max-back-bytes = "20MiB";
+      demuxer-readahead-secs = "3600";
+    };
   };
 }
