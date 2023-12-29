@@ -8,6 +8,9 @@
     '';
   };
 
+  # Kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # File systems
   boot.supportedFilesystems = [ "ntfs" ];
 
@@ -88,7 +91,10 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing =  {
+    enable = true;
+    drivers = [ pkgs.pantum-driver ];
+  };
 
   # fwupd is a simple daemon allowing you to update some devices' firmware, including UEFI for several machines.
   services.fwupd.enable = true;

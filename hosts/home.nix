@@ -55,6 +55,7 @@ in
       numpy
       pandas
       matplotlib
+      faker
     ]))
 
   ];
