@@ -159,8 +159,9 @@
     fwupd
     gnupg
     pinentry-gtk2
-    nix-index
     openssl
+    nix-index
+    cachix
     
     docker
     docker-compose
@@ -215,6 +216,7 @@
     extraGroups = [ "networkmanager" "wheel" "adbusers" "docker" ];
     packages = with pkgs; [
       libsForQt5.yakuake
+      libsForQt5.plasma-browser-integration
       firefox
       brave
       google-chrome

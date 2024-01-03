@@ -34,6 +34,7 @@ in
     unstablePkgs.android-studio
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.idea-ultimate [ "17718" ])
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.webstorm [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.pycharm-professional [ "17718" ])
 
     # Languages and Runtimes
     rustup

@@ -40,6 +40,7 @@
             inherit pkgs unstablePkgs;
           };
           modules = [
+            ./hosts/cachix.nix
             ./hosts/hardware.nix
             ./hosts/system.nix
             home-manager.nixosModules.home-manager {
