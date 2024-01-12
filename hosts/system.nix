@@ -8,13 +8,10 @@
     '';
   };
 
-  # Kernel
+  # Kernel & Filesystems
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  # File systems
   boot.supportedFilesystems = [ "ntfs" ];
-
-  # Bootloader
+  boot.kernel.sysctl = { "vm.swappiness" = 60; };
   boot.loader.grub = {
     enable = true;
     device = "nodev";
@@ -22,9 +19,6 @@
     efiInstallAsRemovable = true;
     useOSProber = true;
   };
-
-  # Swap
-  boot.kernel.sysctl = { "vm.swappiness" = 60; };
 
   # Enable OpenGL
   nixpkgs.config.packageOverrides = pkgs: {
@@ -90,12 +84,6 @@
     xkbVariant = "";
   };
 
-  # Enable CUPS to print documents.
-  services.printing =  {
-    enable = true;
-    drivers = [ pkgs.pantum-driver ];
-  };
-
   # fwupd is a simple daemon allowing you to update some devices' firmware, including UEFI for several machines.
   services.fwupd.enable = true;
 
@@ -144,9 +132,21 @@
   # kdeconnect
   programs.kdeconnect.enable = true;
 
-  # Virtualisation
-  virtualisation.libvirtd.enable = true;
+  # KVM Virtualisation
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf.enable = true;
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+      };
+    };
+    spiceUSBRedirection.enable = true;
+  };
   programs.virt-manager.enable = true;
+  services.spice-vdagentd.enable = true;
+  programs.dconf.enable = true;
 
   # System packages
   environment.systemPackages = with pkgs; [
@@ -162,18 +162,30 @@
     openssl
     nix-index
     cachix
+
+    # clipboard tools
+    xclip 
+    xsel
+    wl-clipboard
     
+    # Development tools
     docker
     docker-compose
-
-    # Python Packages
     python311
     python311Packages.pip
-
     nodejs_18
     jdk17
     gnumake
     gcc-unwrapped
+
+    # Virtualisation
+    virt-manager
+    virt-viewer
+    spice 
+    spice-gtk
+    win-virtio 
+    win-spice
+    gnome.adwaita-icon-theme
   ];
 
   fonts = {

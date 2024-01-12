@@ -1,9 +1,10 @@
-{ config, lib, pkgs, unstablePkgs, self, ... }:
+{ config, lib, pkgs, unstablePkgs, self, nixvim, ... }:
 let 
   username = "tlm";
   configNeovim = ./configs/neovim;
 in
 {
+
   home.stateVersion = "23.11";
 
   home.packages = with pkgs; [
@@ -35,10 +36,12 @@ in
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.idea-ultimate [ "17718" ])
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.webstorm [ "17718" ])
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.pycharm-professional [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.rust-rover [ "17718" ])
 
     # Languages and Runtimes
     rustup
     bun
+    unstablePkgs.flutter
 
     # Python with packages
     (python311.withPackages (ps: with ps; [
@@ -157,10 +160,7 @@ in
         luaFileNames = lib.attrNames luaFiles;
         luaConfigs = builtins.map builtins.readFile (map (path: builtins.path { name = path; path = configNeovim + "/${path}"; }) luaFileNames);
       in
-      lib.concatStringsSep "\n" (luaConfigs ++ [
-      ''
-      ''
-      ]);
+      lib.concatStringsSep "\n" (luaConfigs);
   };
 
   programs.starship = {

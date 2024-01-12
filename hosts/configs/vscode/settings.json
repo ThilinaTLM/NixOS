@@ -4,5 +4,6 @@
   "editor.inlineSuggest.enabled": true,
   "files.autoSave": "afterDelay",
   "update.mode": "none",
-  "editor.fontFamily": "'IosevkaTerm Nerd Font', 'Droid Sans Mono', 'monospace', monospace"
+  "editor.fontFamily": "'IosevkaTerm Nerd Font', 'Droid Sans Mono', 'monospace', monospace",
+  "editor.fontWeight": "400"
 }
