@@ -12,6 +12,8 @@ in
     nixpkgs-fmt
     nixfmt
     aria2
+    anydesk
+    gnome.gnome-disk-utility
 
     # Multimedia
     stremio
@@ -29,7 +31,6 @@ in
 
     # Dev Tools
     dbeaver
-    self.packages.postmanCustom
     mongodb-compass
     gh
     unstablePkgs.android-studio
@@ -55,7 +56,6 @@ in
       autopep8
       yapf
       pynvim
-
       numpy
       pandas
       matplotlib
@@ -100,6 +100,7 @@ in
         Type = "simple";
         ExecStart = "${pkgs.aria2}/bin/aria2c --conf-path=${config.home.homeDirectory}/.config/aria2/aria2.conf";
         Restart = "on-failure";
+        Autostart = true;
       };
     };
   };

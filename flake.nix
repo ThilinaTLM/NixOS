@@ -11,14 +11,9 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nixvim
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, nixvim, ... }@attrs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, ... }@attrs:
     let
       system = "x86_64-linux";
       userName = "tlm";
@@ -54,7 +49,7 @@
                 useUserPackages = true;
                 users.${userName} = import ./hosts/home.nix;
                 extraSpecialArgs = {
-                  inherit pkgs unstablePkgs self nixvim;
+                  inherit pkgs unstablePkgs self;
                 };
               };
             }
