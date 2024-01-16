@@ -106,7 +106,7 @@ in
 
   # VsCode Configuration
   programs.vscode = {
-    enable = false;
+    enable = true;
     package = unstablePkgs.vscode;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
