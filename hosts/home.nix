@@ -134,7 +134,7 @@ in
       rust-lang.rust-analyzer
       vadimcn.vscode-lldb
       serayuzgur.crates
-      bungcip.better-toml
+      tamasfe.even-better-toml
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
         name = "xcode-12-theme";
