@@ -6,6 +6,6 @@
     "files.autoSave": "afterDelay",
     "editor.inlineSuggest.enabled": true,
     "editor.fontFamily": "'IosevkaTerm Nerd Font', monospace",
-    "editor.fontWeight": "200",
+    "editor.fontWeight": "400",
     "editor.fontLigatures": true
 }
