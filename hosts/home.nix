@@ -74,12 +74,12 @@ in
       init.defaultBranch = "main";
     };
   };
-
   programs.gh = {
     enable = true;
     extensions = [ pkgs.gh-dash ];
   };
 
+  # Aria2 Configuration
   programs.aria2 = {
     enable = true;
     settings = {
@@ -89,7 +89,6 @@ in
       dir = "/home/${username}/Downloads";
     };
   };
-
   systemd.user.services = {
     aria2 = {
       Unit = {
@@ -111,18 +110,31 @@ in
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
     extensions = with unstablePkgs.vscode-extensions; [
+      # essentials
       github.copilot
       github.copilot-chat
       jnoortheen.nix-ide
-      pkief.material-icon-theme
       ms-vscode.makefile-tools
-      foxundermoon.shell-format
-      ms-python.python
       ms-azuretools.vscode-docker
-      esbenp.prettier-vscode
-      dbaeumer.vscode-eslint
-      formulahendry.auto-rename-tag
       formulahendry.code-runner
+
+      # themes
+      pkief.material-icon-theme
+
+      # formatters & linters
+      dbaeumer.vscode-eslint
+      foxundermoon.shell-format
+      esbenp.prettier-vscode
+      formulahendry.auto-rename-tag
+
+      # python
+      ms-python.python
+
+      # rust
+      rust-lang.rust-analyzer
+      vadimcn.vscode-lldb
+      serayuzgur.crates
+      bungcip.better-toml
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
         name = "xcode-12-theme";
@@ -135,6 +147,7 @@ in
     keybindings = builtins.fromJSON (builtins.readFile ./configs/vscode/keybindings.json);
   };
 
+  # Neovim Configuration
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-unwrapped;
@@ -173,14 +186,9 @@ in
       lib.concatStringsSep "\n" (luaConfigs);
   };
 
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-    package = pkgs.starship;
-    settings = (import ./configs/shell/starship.nix lib).settings;
-  };
+  
 
-  # Shell configuration, ZSH
+  # Shell Configuration
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -232,7 +240,14 @@ in
       }
     ];
   };
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    package = pkgs.starship;
+    settings = (import ./configs/shell/starship.nix lib).settings;
+  };
 
+  # MPV Configuration
   programs.mpv = {
     enable = true;
     config = {
