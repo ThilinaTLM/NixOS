@@ -18,10 +18,3 @@ set mouse=a          " Enable mouse support
 set hidden           " Enable background buffers
 set wildmenu         " Enable menu for tab-completion
 
-
-" -- Essential Keymaps
-let mapleader = " "
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
-vnoremap <C-c> "+y
-nnoremap <C-v> "+p

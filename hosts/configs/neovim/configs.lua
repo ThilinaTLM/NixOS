@@ -21,10 +21,6 @@ require("telescope").setup {
 
 require("telescope").load_extension "file_browser"
 
--- Telescope: Keymaps
-vim.api.nvim_set_keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", {noremap = true})
-
-
 -- Treesitter
 require'nvim-treesitter.configs'.setup {
     highlight = {

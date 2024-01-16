@@ -13,7 +13,6 @@ let
     platforms = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
     maintainers = with maintainers; [ johnrichardrinehart evanjs tricktron Crafter ];
   };
-
 in
 
 if stdenvNoCC.isDarwin

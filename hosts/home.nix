@@ -64,7 +64,7 @@ in
 
   ];
 
-
+  # Git Configuration
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
@@ -100,13 +100,13 @@ in
         Type = "simple";
         ExecStart = "${pkgs.aria2}/bin/aria2c --conf-path=${config.home.homeDirectory}/.config/aria2/aria2.conf";
         Restart = "on-failure";
-        Autostart = true;
       };
     };
   };
 
+  # VsCode Configuration
   programs.vscode = {
-    enable = true;
+    enable = false;
     package = unstablePkgs.vscode;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
@@ -120,10 +120,16 @@ in
       ms-python.python
       ms-azuretools.vscode-docker
       esbenp.prettier-vscode
-      streetsidesoftware.code-spell-checker
       dbaeumer.vscode-eslint
       formulahendry.auto-rename-tag
       formulahendry.code-runner
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "xcode-12-theme";
+        publisher = "MateoCERQUETELLA";
+        version = "5.0.0";
+        sha256 = "sha256-rMVpn8bu2KTLyjEQIHYlwTDSCvMdMtM7J9EApXd9EBg=";
+      }
     ];
     userSettings = builtins.fromJSON (builtins.readFile ./configs/vscode/settings.json);
     keybindings = builtins.fromJSON (builtins.readFile ./configs/vscode/keybindings.json);
@@ -140,11 +146,14 @@ in
     withPython3 = true;
     plugins = with pkgs.vimPlugins; [
       plenary-nvim
+      nvim-web-devicons
+      nui-nvim
       nvim-treesitter.withAllGrammars
       gruvbox-material
       copilot-lua
       telescope-nvim
       telescope-file-browser-nvim
+      neo-tree-nvim
     ];
     extraConfig =
       let
