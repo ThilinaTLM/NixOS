@@ -40,7 +40,8 @@ in
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.rust-rover [ "17718" ])
 
     # Languages and Runtimes
-    rustup
+    gcc_multi
+    rustup trunk
     bun
     unstablePkgs.flutter
 
@@ -129,6 +130,11 @@ in
 
       # python
       ms-python.python
+      ms-toolsai.jupyter
+      ms-toolsai.vscode-jupyter-slideshow
+      ms-toolsai.vscode-jupyter-cell-tags
+      ms-toolsai.jupyter-renderers
+      ms-toolsai.jupyter-keymap
 
       # rust
       rust-lang.rust-analyzer
