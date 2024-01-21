@@ -14,6 +14,8 @@ in
     aria2
     anydesk
     gnome.gnome-disk-utility
+    direnv
+    cloudflared
 
     # Multimedia
     stremio
@@ -118,6 +120,9 @@ in
       ms-vscode.makefile-tools
       ms-azuretools.vscode-docker
       formulahendry.code-runner
+      ms-vscode-remote.remote-ssh
+      visualstudioexptteam.vscodeintellicode
+      mkhl.direnv
 
       # themes
       pkief.material-icon-theme
@@ -147,6 +152,12 @@ in
         publisher = "MateoCERQUETELLA";
         version = "5.0.0";
         sha256 = "sha256-rMVpn8bu2KTLyjEQIHYlwTDSCvMdMtM7J9EApXd9EBg=";
+      }
+      {
+        name = "converttoasciiart";
+        publisher = "BitBelt";
+        version = "1.0.3";
+        sha256 = "sha256-Xpd0tX9hapO+2tQ4QtY/hQT5V91MkxsTSTxCXXkeRfY=";
       }
     ];
     userSettings = builtins.fromJSON (builtins.readFile ./configs/vscode/settings.json);
