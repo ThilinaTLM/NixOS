@@ -116,22 +116,25 @@ in
       # essentials
       github.copilot
       github.copilot-chat
-      jnoortheen.nix-ide
-      ms-vscode.makefile-tools
       ms-azuretools.vscode-docker
-      formulahendry.code-runner
       ms-vscode-remote.remote-ssh
-      visualstudioexptteam.vscodeintellicode
-      mkhl.direnv
+      # vscodeintellicode
+      # converttoasciiart
 
       # themes
       pkief.material-icon-theme
+      # xcode-12-theme
 
       # formatters & linters
       dbaeumer.vscode-eslint
       foxundermoon.shell-format
       esbenp.prettier-vscode
       formulahendry.auto-rename-tag
+
+      # nix support
+      jnoortheen.nix-ide
+      arrterian.nix-env-selector
+      mkhl.direnv
 
       # python
       ms-python.python
@@ -148,6 +151,12 @@ in
       tamasfe.even-better-toml
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
+        name = "vscodeintellicode";
+        publisher = "VisualStudioExptTeam";
+        version = "1.2.30";
+        sha256 = "sha256-f2Gn+W0QHN8jD5aCG+P93Y+JDr/vs2ldGL7uQwBK4lE=";
+      }
+      {
         name = "xcode-12-theme";
         publisher = "MateoCERQUETELLA";
         version = "5.0.0";
@@ -157,6 +166,12 @@ in
         name = "converttoasciiart";
         publisher = "BitBelt";
         version = "1.0.3";
+        sha256 = "sha256-Xpd0tX9hapO+2tQ4QtY/hQT5V91MkxsTSTxCXXkeRfY=";
+      }
+      {
+        name = "intellij-idea-keybindings";
+        publisher = "k--kato";
+        version = "1.5.12	";
         sha256 = "sha256-Xpd0tX9hapO+2tQ4QtY/hQT5V91MkxsTSTxCXXkeRfY=";
       }
     ];

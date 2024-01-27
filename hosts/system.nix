@@ -151,6 +151,7 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
+    # Utils
     os-prober
     wget
     curl
@@ -163,6 +164,12 @@
     openssl
     nix-index
     cachix
+
+    # Libraries
+    libxkbcommon
+    libGL
+    fontconfig
+    wayland
 
     # clipboard tools
     xclip 
