@@ -16,6 +16,7 @@ in
     gnome.gnome-disk-utility
     direnv
     cloudflared
+    qpwgraph
 
     # Multimedia
     stremio
@@ -40,6 +41,7 @@ in
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.webstorm [ "17718" ])
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.pycharm-professional [ "17718" ])
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.rust-rover [ "17718" ])
+    postman
 
     # Languages and Runtimes
     gcc_multi
@@ -143,6 +145,7 @@ in
       ms-toolsai.vscode-jupyter-cell-tags
       ms-toolsai.jupyter-renderers
       ms-toolsai.jupyter-keymap
+      ms-python.black-formatter
 
       # rust
       rust-lang.rust-analyzer
