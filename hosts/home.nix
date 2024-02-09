@@ -1,9 +1,10 @@
 { config, lib, pkgs, unstablePkgs, self, nixvim, ... }:
-let 
-  username = "tlm";
-  configNeovim = ./configs/neovim;
-in
-{
+let username = "tlm";
+in {
+  
+  imports = [
+    ./configs/neovim
+  ];
 
   home.stateVersion = "23.11";
 
@@ -37,35 +38,41 @@ in
     mongodb-compass
     gh
     unstablePkgs.android-studio
-    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.idea-ultimate [ "17718" ])
-    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.webstorm [ "17718" ])
-    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.pycharm-professional [ "17718" ])
-    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.rust-rover [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins
+      unstablePkgs.jetbrains.idea-ultimate [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.webstorm
+      [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins
+      unstablePkgs.jetbrains.pycharm-professional [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.rust-rover
+      [ "17718" ])
     postman
 
     # Languages and Runtimes
     gcc_multi
-    rustup trunk
+    rustup
+    trunk
     bun
     unstablePkgs.flutter
 
     # Python with packages
-    (python311.withPackages (ps: with ps; [
-      pip
-      pipenv
-      black
-      isort
-      flake8
-      mypy
-      pylint
-      autopep8
-      yapf
-      pynvim
-      numpy
-      pandas
-      matplotlib
-      faker
-    ]))
+    (python311.withPackages (ps:
+      with ps; [
+        pip
+        pipenv
+        black
+        isort
+        flake8
+        mypy
+        pylint
+        autopep8
+        yapf
+        pynvim
+        numpy
+        pandas
+        matplotlib
+        faker
+      ]))
 
   ];
 
@@ -75,9 +82,7 @@ in
     package = pkgs.gitFull;
     userName = "Thilina Lakshan";
     userEmail = "thilina.18@cse.mrt.ac.lk";
-    extraConfig = {
-      init.defaultBranch = "main";
-    };
+    extraConfig = { init.defaultBranch = "main"; };
   };
   programs.gh = {
     enable = true;
@@ -102,7 +107,8 @@ in
       };
       Service = {
         Type = "simple";
-        ExecStart = "${pkgs.aria2}/bin/aria2c --conf-path=${config.home.homeDirectory}/.config/aria2/aria2.conf";
+        ExecStart =
+          "${pkgs.aria2}/bin/aria2c --conf-path=${config.home.homeDirectory}/.config/aria2/aria2.conf";
         Restart = "on-failure";
       };
     };
@@ -120,12 +126,10 @@ in
       github.copilot-chat
       ms-azuretools.vscode-docker
       ms-vscode-remote.remote-ssh
-      # vscodeintellicode
-      # converttoasciiart
 
       # themes
       pkief.material-icon-theme
-      # xcode-12-theme
+      github.github-vscode-theme
 
       # formatters & linters
       dbaeumer.vscode-eslint
@@ -140,88 +144,74 @@ in
 
       # python
       ms-python.python
+      ms-python.black-formatter
+      ms-python.vscode-pylance
+      ms-python.isort
       ms-toolsai.jupyter
       ms-toolsai.vscode-jupyter-slideshow
       ms-toolsai.vscode-jupyter-cell-tags
       ms-toolsai.jupyter-renderers
       ms-toolsai.jupyter-keymap
-      ms-python.black-formatter
 
       # rust
       rust-lang.rust-analyzer
       vadimcn.vscode-lldb
       serayuzgur.crates
       tamasfe.even-better-toml
-    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-        name = "vscodeintellicode";
-        publisher = "VisualStudioExptTeam";
-        version = "1.2.30";
-        sha256 = "sha256-f2Gn+W0QHN8jD5aCG+P93Y+JDr/vs2ldGL7uQwBK4lE=";
-      }
-      {
-        name = "xcode-12-theme";
-        publisher = "MateoCERQUETELLA";
-        version = "5.0.0";
-        sha256 = "sha256-rMVpn8bu2KTLyjEQIHYlwTDSCvMdMtM7J9EApXd9EBg=";
-      }
-      {
-        name = "converttoasciiart";
-        publisher = "BitBelt";
-        version = "1.0.3";
-        sha256 = "sha256-Xpd0tX9hapO+2tQ4QtY/hQT5V91MkxsTSTxCXXkeRfY=";
-      }
-      {
-        name = "intellij-idea-keybindings";
-        publisher = "k--kato";
-        version = "1.5.12	";
-        sha256 = "sha256-Xpd0tX9hapO+2tQ4QtY/hQT5V91MkxsTSTxCXXkeRfY=";
-      }
+
+      # Cpp
+      ms-vscode.cpptools
     ];
-    userSettings = builtins.fromJSON (builtins.readFile ./configs/vscode/settings.json);
-    keybindings = builtins.fromJSON (builtins.readFile ./configs/vscode/keybindings.json);
+    userSettings =
+      builtins.fromJSON (builtins.readFile ./configs/vscode/settings.json);
+    keybindings =
+      builtins.fromJSON (builtins.readFile ./configs/vscode/keybindings.json);
   };
 
   # Neovim Configuration
-  programs.neovim = {
-    enable = true;
-    package = pkgs.neovim-unwrapped;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    withNodeJs = true;
-    withPython3 = true;
-    plugins = with pkgs.vimPlugins; [
-      plenary-nvim
-      nvim-web-devicons
-      nui-nvim
-      nvim-treesitter.withAllGrammars
-      gruvbox-material
-      copilot-lua
-      telescope-nvim
-      telescope-file-browser-nvim
-      neo-tree-nvim
-    ];
-    extraConfig =
-      let
-        vimFiles = lib.filterAttrs (name: type: lib.hasSuffix ".vim" name) (builtins.readDir configNeovim);
-        vimFileNames = lib.attrNames vimFiles;
-        vimConfigs = builtins.map builtins.readFile (map (path: builtins.path { name = path; path = configNeovim + "/${path}"; }) vimFileNames);
-      in
-      lib.concatStringsSep "\n" (vimConfigs ++ [
-        "colorscheme gruvbox-material"
-      ]);
-    extraLuaConfig = 
-      let
-        luaFiles = lib.filterAttrs (name: type: lib.hasSuffix ".lua" name) (builtins.readDir configNeovim);
-        luaFileNames = lib.attrNames luaFiles;
-        luaConfigs = builtins.map builtins.readFile (map (path: builtins.path { name = path; path = configNeovim + "/${path}"; }) luaFileNames);
-      in
-      lib.concatStringsSep "\n" (luaConfigs);
-  };
-
-  
+  # programs.neovim = {
+  #   enable = true;
+  #   package = pkgs.neovim-unwrapped;
+  #   defaultEditor = true;
+  #   viAlias = true;
+  #   vimAlias = true;
+  #   vimdiffAlias = true;
+  #   withNodeJs = true;
+  #   withPython3 = true;
+  #   plugins = with pkgs.vimPlugins; [
+  #     plenary-nvim
+  #     nvim-web-devicons
+  #     nui-nvim
+  #     nvim-treesitter.withAllGrammars
+  #     gruvbox-material
+  #     copilot-lua
+  #     telescope-nvim
+  #     telescope-file-browser-nvim
+  #     neo-tree-nvim
+  #     bufferline-nvim
+  #   ];
+  #   extraConfig = let
+  #     vimFiles = lib.filterAttrs (name: type: lib.hasSuffix ".vim" name)
+  #       (builtins.readDir ./configs/neovim);
+  #     vimFileNames = lib.attrNames vimFiles;
+  #     vimConfigs = builtins.map builtins.readFile (map (path:
+  #       builtins.path {
+  #         name = path;
+  #         path = ./configs/neovim + "/${path}";
+  #       }) vimFileNames);
+  #   in lib.concatStringsSep "\n"
+  #   (vimConfigs ++ [ "colorscheme gruvbox-material" ]);
+  #   extraLuaConfig = let
+  #     luaFiles = lib.filterAttrs (name: type: lib.hasSuffix ".lua" name)
+  #       (builtins.readDir ./configs/neovim);
+  #     luaFileNames = lib.attrNames luaFiles;
+  #     luaConfigs = builtins.map builtins.readFile (map (path:
+  #       builtins.path {
+  #         name = path;
+  #         path = ./configs/neovim + "/${path}";
+  #       }) luaFileNames);
+  #   in lib.concatStringsSep "\n" (luaConfigs);
+  # };
 
   # Shell Configuration
   programs.zsh = {
@@ -262,18 +252,16 @@ in
       # prompt init
       eval "$(starship init zsh)"
     '';
-    plugins = [
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.7.0";
-          sha256 = "149zh2rm59blr2q458a5irkfh82y3dwdich60s9670kl3cl5h2m1";
-        };
-      }
-    ];
+    plugins = [{
+      name = "zsh-nix-shell";
+      file = "nix-shell.plugin.zsh";
+      src = pkgs.fetchFromGitHub {
+        owner = "chisui";
+        repo = "zsh-nix-shell";
+        rev = "v0.7.0";
+        sha256 = "149zh2rm59blr2q458a5irkfh82y3dwdich60s9670kl3cl5h2m1";
+      };
+    }];
   };
   programs.starship = {
     enable = true;

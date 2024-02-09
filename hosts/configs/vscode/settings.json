@@ -1,5 +1,5 @@
 {
-    "workbench.colorTheme": "Xcode Classic (Dark)",
+    "workbench.colorTheme": "GitHub Dark",
     "workbench.iconTheme": "material-icon-theme",
     "update.mode": "none",
     "extensions.autoCheckUpdates": false,
@@ -8,5 +8,6 @@
     "editor.fontFamily": "'IosevkaTerm Nerd Font', monospace",
     "editor.fontSize": 14,
     "editor.fontWeight": "400",
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
+    "window.titleBarStyle": "custom"
 }
