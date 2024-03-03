@@ -45,7 +45,6 @@
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-
     prime = {
       offload = {
         enable = true;
@@ -96,7 +95,10 @@
 
   # Enable sound with pipewire.
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  hardware.pulseaudio = {
+    enable = false;
+    support32Bit = true;
+  };
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -151,6 +153,10 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
+    # Drivers
+    mesa
+    vulkan-tools
+
     # Utils
     os-prober
     wget
@@ -182,7 +188,7 @@
     python311
     python311Packages.pip
     nodejs_18
-    jdk17
+    temurin-bin-17
     gnumake
     gcc-unwrapped
 
