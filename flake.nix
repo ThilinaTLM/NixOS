@@ -4,7 +4,6 @@
   inputs = {
     # nixpkgs channels
     nixpkgs.url = "nixpkgs/nixos-23.11";
-    nixpkgs-stable.url = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     # home manager
     home-manager = {
@@ -13,7 +12,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, ... }@attrs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@attrs:
     let
       system = "x86_64-linux";
       userName = "tlm";
