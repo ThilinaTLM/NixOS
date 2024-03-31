@@ -7,13 +7,13 @@ in {
   ];
 
   home.stateVersion = "23.11";
+  home.enableNixpkgsReleaseCheck = false;
 
   home.packages = with pkgs; [
     # Utilities
     nixpkgs-fmt
     nixfmt
     aria2
-    anydesk
     gnome.gnome-disk-utility
     direnv
     cloudflared
@@ -237,6 +237,9 @@ in {
       vim = "nvim";
     };
     initExtra = ''
+      # lazy directory completion
+      zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
+
       # z plugin for jumps around
       source ${
         pkgs.fetchurl {

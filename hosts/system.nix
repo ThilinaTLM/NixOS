@@ -75,13 +75,15 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.displayManager.defaultSession = "plasmawayland";
+  services.xserver.displayManager.sddm.wayland.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
   };
 
   # fwupd is a simple daemon allowing you to update some devices' firmware, including UEFI for several machines.
@@ -128,7 +130,6 @@
   services.pcscd.enable = true;
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "gtk2";
     enableSSHSupport = true;
   };
 
@@ -243,8 +244,9 @@
     description = "Thilina Lakshan";
     extraGroups = [ "networkmanager" "wheel" "adbusers" "docker" ];
     packages = with pkgs; [
-      libsForQt5.yakuake
-      libsForQt5.plasma-browser-integration
+      kdePackages.yakuake
+      kdePackages.plasma-browser-integration
+      kdePackages.discover
       firefox
       brave
       google-chrome
