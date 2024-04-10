@@ -11,3 +11,8 @@ update:
 trace:
 	@echo "Building NixOS from flake..."
 	sudo nixos-rebuild switch --flake .#TLM-NixOS --impure --show-trace
+
+optimise:
+	@echo "Optimising NixOS from flake..."
+	sudo nix-collect-garbage -d
+	sudo nix-store --optimise
