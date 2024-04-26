@@ -6,6 +6,9 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    settings = { 
+      trusted-users = [ "root" "tlm" ];
+    };
   };
 
   # Kernel & Filesystems
@@ -54,6 +57,7 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
+  nixpkgs.config.cudaSupport = true;
 
   # Enable networking
   networking.hostName = "TLM-NixOS"; # Define your hostname.
@@ -74,8 +78,8 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
@@ -151,6 +155,13 @@
   programs.virt-manager.enable = true;
   services.spice-vdagentd.enable = true;
   programs.dconf.enable = true;
+
+  # Ollama
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+    listenAddress = "0.0.0.0:11434";
+  };
 
   # System packages
   environment.systemPackages = with pkgs; [

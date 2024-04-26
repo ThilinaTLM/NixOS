@@ -11,8 +11,7 @@ in {
 
   home.packages = with pkgs; [
     # Utilities
-    nixpkgs-fmt
-    nixfmt
+    nixfmt-rfc-style
     aria2
     gnome.gnome-disk-utility
     direnv
