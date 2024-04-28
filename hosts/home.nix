@@ -36,15 +36,11 @@ in {
     dbeaver
     mongodb-compass
     gh
-    unstablePkgs.android-studio
-    (unstablePkgs.jetbrains.plugins.addPlugins
-      unstablePkgs.jetbrains.idea-ultimate [ "17718" ])
-    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.webstorm
-      [ "17718" ])
-    (unstablePkgs.jetbrains.plugins.addPlugins
-      unstablePkgs.jetbrains.pycharm-professional [ "17718" ])
-    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.rust-rover
-      [ "17718" ])
+    android-studio
+    (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [ "17718" ])
+    (jetbrains.plugins.addPlugins jetbrains.webstorm [ "17718" ])
+    (jetbrains.plugins.addPlugins jetbrains.pycharm-professional [ "17718" ])
+    (jetbrains.plugins.addPlugins jetbrains.rust-rover [ "17718" ])
     postman
 
     # Languages and Runtimes
@@ -52,7 +48,7 @@ in {
     rustup
     trunk
     bun
-    unstablePkgs.flutter
+    flutter
 
     # Python with packages
     (python311.withPackages (ps:
@@ -116,15 +112,14 @@ in {
   # VsCode Configuration
   programs.vscode = {
     enable = true;
-    package = unstablePkgs.vscode;
+    package = pkgs.vscode;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
-    extensions = with unstablePkgs.vscode-extensions; [
+    extensions = with pkgs.vscode-extensions; [
       # essentials
-      github.copilot
-      github.copilot-chat
       ms-azuretools.vscode-docker
       ms-vscode-remote.remote-ssh
+      continue.continue
 
       # themes
       pkief.material-icon-theme
