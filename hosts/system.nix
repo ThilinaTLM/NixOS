@@ -1,4 +1,9 @@
-{ config, pkgs, unstablePkgs, ... }:
+{
+  config,
+  pkgs,
+  nixAlien,
+  ...
+}:
 {
   # Enable Flakes and the new command-line tool
   nix = {
@@ -6,15 +11,20 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    settings = { 
-      trusted-users = [ "root" "tlm" ];
+    settings = {
+      trusted-users = [
+        "root"
+        "tlm"
+      ];
     };
   };
 
   # Kernel & Filesystems
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "ntfs" ];
-  boot.kernel.sysctl = { "vm.swappiness" = 60; };
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 60;
+  };
   boot.loader.grub = {
     enable = true;
     device = "nodev";
@@ -123,7 +133,10 @@
   };
 
   # Docker
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableNvidia = true;
+  };
   users.extraGroups.docker.members = [ "tlm" ];
 
   # Android
@@ -163,6 +176,16 @@
     listenAddress = "0.0.0.0:11434";
   };
 
+  # Tabby
+  services.tabby = {
+    enable = true;
+    acceleration = "cuda";
+    model = "TabbyML/DeepseekCoder-6.7B";
+  };
+
+  # nix-ld
+  programs.nix-ld.enable = true;
+
   # System packages
   environment.systemPackages = with pkgs; [
     # Drivers
@@ -190,10 +213,10 @@
     wayland
 
     # clipboard tools
-    xclip 
+    xclip
     xsel
     wl-clipboard
-    
+
     # Development tools
     docker
     docker-compose
@@ -207,18 +230,24 @@
     # Virtualisation
     virt-manager
     virt-viewer
-    spice 
+    spice
     spice-gtk
-    win-virtio 
+    win-virtio
     win-spice
 
     # Gnome
     gnome.adwaita-icon-theme
+    nixAlien.nix-alien
   ];
 
   fonts = {
-    packages = with pkgs; [ 
-      (nerdfonts.override { fonts = [ "FiraCode" "IosevkaTerm" ]; }) 
+    packages = with pkgs; [
+      (nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "IosevkaTerm"
+        ];
+      })
       noto-fonts
       noto-fonts-emoji
       noto-fonts-cjk
@@ -253,7 +282,12 @@
   users.users.tlm = {
     isNormalUser = true;
     description = "Thilina Lakshan";
-    extraGroups = [ "networkmanager" "wheel" "adbusers" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "adbusers"
+      "docker"
+    ];
     packages = with pkgs; [
       kdePackages.yakuake
       kdePackages.plasma-browser-integration
@@ -265,5 +299,4 @@
       libreoffice-qt
     ];
   };
-
 }

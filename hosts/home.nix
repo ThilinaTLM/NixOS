@@ -1,10 +1,18 @@
-{ config, lib, pkgs, unstablePkgs, self, nixvim, ... }:
-let username = "tlm";
-in {
-  
-  imports = [
-    ./configs/neovim
-  ];
+{
+  config,
+  lib,
+  pkgs,
+  unstablePkgs,
+  self,
+  nixvim,
+  ...
+}:
+let
+  username = "tlm";
+in
+{
+
+  imports = [ ./configs/neovim ];
 
   home.stateVersion = "23.11";
   home.enableNixpkgsReleaseCheck = false;
@@ -37,11 +45,91 @@ in {
     mongodb-compass
     gh
     android-studio
-    (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [ "17718" ])
-    (jetbrains.plugins.addPlugins jetbrains.webstorm [ "17718" ])
+    (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [ 
+      (pkgs.stdenv.mkDerivation {
+        name = "continue";
+        version = "0.0.45";
+        src = pkgs.fetchurl { 
+          url = "https://downloads.marketplace.jetbrains.com/files/22707/523317/continue-intellij-extension-0.0.45.zip?updateId=523317&pluginId=22707&family=INTELLIJ"; 
+          hash = "sha256-ch9lrIQLnCPh2SpIvujHcNs7u6swt3eTt8R7WXRfXLY="; 
+        };
+        dontUnpack = true;
+        installPhase = ''
+          mkdir -p $out
+          cp $src $out
+        '';
+      })
+    ])
+    (jetbrains.plugins.addPlugins jetbrains.webstorm [ 
+      (pkgs.stdenv.mkDerivation {
+        name = "aws-toolkit--amazon-q-codewhisperer-and-more";
+        version = "2.19-241";
+        src = pkgs.fetchurl { 
+          url = "https://downloads.marketplace.jetbrains.com/files/11349/524976/aws-toolkit-jetbrains-2.19-241.zip?updateId=524976&pluginId=11349&family=INTELLIJ"; 
+          hash = "sha256-m1godpbg+IpGkCSNgHtSETXhoVGRnjrdNdD4WAbFnJ0="; 
+        };
+        dontUnpack = true;
+        installPhase = ''
+          mkdir -p $out
+          cp $src $out
+        '';
+      })
+      (pkgs.stdenv.mkDerivation {
+        name = "continue";
+        version = "0.0.45";
+        src = pkgs.fetchurl { 
+          url = "https://downloads.marketplace.jetbrains.com/files/22707/523317/continue-intellij-extension-0.0.45.zip?updateId=523317&pluginId=22707&family=INTELLIJ"; 
+          hash = "sha256-ch9lrIQLnCPh2SpIvujHcNs7u6swt3eTt8R7WXRfXLY="; 
+        };
+        dontUnpack = true;
+        installPhase = ''
+          mkdir -p $out
+          cp $src $out
+        '';
+      })
+     ])
     (jetbrains.plugins.addPlugins jetbrains.pycharm-professional [ "17718" ])
     (jetbrains.plugins.addPlugins jetbrains.rust-rover [ "17718" ])
     postman
+    (vscode-with-extensions.override {
+      vscodeExtensions = with vscode-extensions; [
+        # essentials
+        ms-azuretools.vscode-docker
+        ms-vscode-remote.remote-ssh
+
+        # themes
+        pkief.material-icon-theme
+        github.github-vscode-theme
+
+        # formatters & linters
+        dbaeumer.vscode-eslint
+        foxundermoon.shell-format
+        esbenp.prettier-vscode
+        formulahendry.auto-rename-tag
+
+        # nix support
+        jnoortheen.nix-ide
+        arrterian.nix-env-selector
+        mkhl.direnv
+
+        # python
+        ms-python.python
+        ms-python.black-formatter
+        ms-python.vscode-pylance
+        ms-python.isort
+        ms-toolsai.jupyter
+        ms-toolsai.vscode-jupyter-slideshow
+        ms-toolsai.vscode-jupyter-cell-tags
+        ms-toolsai.jupyter-renderers
+        ms-toolsai.jupyter-keymap
+
+        # rust
+        rust-lang.rust-analyzer
+        vadimcn.vscode-lldb
+        serayuzgur.crates
+        tamasfe.even-better-toml
+      ];
+    })
 
     # Languages and Runtimes
     gcc_multi
@@ -51,8 +139,8 @@ in {
     flutter
 
     # Python with packages
-    (python311.withPackages (ps:
-      with ps; [
+    (python311.withPackages (
+      ps: with ps; [
         pip
         pipenv
         black
@@ -67,8 +155,8 @@ in {
         pandas
         matplotlib
         faker
-      ]))
-
+      ]
+    ))
   ];
 
   # Git Configuration
@@ -77,7 +165,9 @@ in {
     package = pkgs.gitFull;
     userName = "Thilina Lakshan";
     userEmail = "thilina.18@cse.mrt.ac.lk";
-    extraConfig = { init.defaultBranch = "main"; };
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
   };
   programs.gh = {
     enable = true;
@@ -102,64 +192,10 @@ in {
       };
       Service = {
         Type = "simple";
-        ExecStart =
-          "${pkgs.aria2}/bin/aria2c --conf-path=${config.home.homeDirectory}/.config/aria2/aria2.conf";
+        ExecStart = "${pkgs.aria2}/bin/aria2c --conf-path=${config.home.homeDirectory}/.config/aria2/aria2.conf";
         Restart = "on-failure";
       };
     };
-  };
-
-  # VsCode Configuration
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscode;
-    enableUpdateCheck = false;
-    enableExtensionUpdateCheck = false;
-    extensions = with pkgs.vscode-extensions; [
-      # essentials
-      ms-azuretools.vscode-docker
-      ms-vscode-remote.remote-ssh
-      continue.continue
-
-      # themes
-      pkief.material-icon-theme
-      github.github-vscode-theme
-
-      # formatters & linters
-      dbaeumer.vscode-eslint
-      foxundermoon.shell-format
-      esbenp.prettier-vscode
-      formulahendry.auto-rename-tag
-
-      # nix support
-      jnoortheen.nix-ide
-      arrterian.nix-env-selector
-      mkhl.direnv
-
-      # python
-      ms-python.python
-      ms-python.black-formatter
-      ms-python.vscode-pylance
-      ms-python.isort
-      ms-toolsai.jupyter
-      ms-toolsai.vscode-jupyter-slideshow
-      ms-toolsai.vscode-jupyter-cell-tags
-      ms-toolsai.jupyter-renderers
-      ms-toolsai.jupyter-keymap
-
-      # rust
-      rust-lang.rust-analyzer
-      vadimcn.vscode-lldb
-      serayuzgur.crates
-      tamasfe.even-better-toml
-
-      # Cpp
-      # ms-vscode.cpptools
-    ];
-    userSettings =
-      builtins.fromJSON (builtins.readFile ./configs/vscode/settings.json);
-    keybindings =
-      builtins.fromJSON (builtins.readFile ./configs/vscode/keybindings.json);
   };
 
   # Shell Configuration
@@ -192,8 +228,7 @@ in {
       # z plugin for jumps around
       source ${
         pkgs.fetchurl {
-          url =
-            "https://github.com/rupa/z/raw/2ebe419ae18316c5597dd5fb84b5d8595ff1dde9/z.sh";
+          url = "https://github.com/rupa/z/raw/2ebe419ae18316c5597dd5fb84b5d8595ff1dde9/z.sh";
           sha256 = "0ywpgk3ksjq7g30bqbhl9znz3jh6jfg8lxnbdbaiipzgsy41vi10";
         }
       }
@@ -204,16 +239,18 @@ in {
       # prompt init
       eval "$(starship init zsh)"
     '';
-    plugins = [{
-      name = "zsh-nix-shell";
-      file = "nix-shell.plugin.zsh";
-      src = pkgs.fetchFromGitHub {
-        owner = "chisui";
-        repo = "zsh-nix-shell";
-        rev = "v0.7.0";
-        sha256 = "149zh2rm59blr2q458a5irkfh82y3dwdich60s9670kl3cl5h2m1";
-      };
-    }];
+    plugins = [
+      {
+        name = "zsh-nix-shell";
+        file = "nix-shell.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "chisui";
+          repo = "zsh-nix-shell";
+          rev = "v0.7.0";
+          sha256 = "149zh2rm59blr2q458a5irkfh82y3dwdich60s9670kl3cl5h2m1";
+        };
+      }
+    ];
   };
   programs.starship = {
     enable = true;

@@ -21,9 +21,18 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-alien.url = "github:thiagokokada/nix-alien";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@attrs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      nix-alien,
+      ...
+    }@attrs:
     let
       system = "x86_64-linux";
       userName = "tlm";
@@ -35,7 +44,7 @@
         };
         overlays = [
           (final: prev: {
-            postman = prev.postman.overrideAttrs(old: rec {
+            postman = prev.postman.overrideAttrs (old: rec {
               version = "20230716100528";
               src = final.fetchurl {
                 url = "https://web.archive.org/web/${version}/https://dl.pstmn.io/download/latest/linux_64";
@@ -46,34 +55,29 @@
           })
         ];
       };
-      unstablePkgs = import nixpkgs-unstable {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          cudaSupport = true;
-        };
-      };
-    in {
+      nixAlien = import nix-alien {  };
+    in
+    {
       packages = {
-        postmanCustom = import ./modules/postman/default.nix {
-          inherit pkgs;
-        };
+        postmanCustom = import ./modules/postman/default.nix { inherit pkgs; };
       };
       nixosConfigurations = {
         "TLM-NixOS" = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit pkgs unstablePkgs;
+            inherit pkgs nixAlien;
           };
           modules = [
-            ./hosts/hardware.nix ./hosts/system.nix
-            home-manager.nixosModules.home-manager {
-               home-manager = {
+            ./hosts/hardware.nix
+            ./hosts/system.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${userName} = import ./hosts/home.nix;
                 extraSpecialArgs = {
-                  inherit pkgs unstablePkgs self;
+                  inherit pkgs nixAlien self;
                 };
               };
             }
