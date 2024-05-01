@@ -171,14 +171,14 @@
 
   # Ollama
   services.ollama = {
-    enable = true;
+    enable = false;
     acceleration = "cuda";
     listenAddress = "0.0.0.0:11434";
   };
 
   # Tabby
   services.tabby = {
-    enable = true;
+    enable = false;
     acceleration = "cuda";
     model = "TabbyML/DeepseekCoder-6.7B";
   };
