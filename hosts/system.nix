@@ -124,7 +124,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Xdg portal
   xdg.portal = {
@@ -174,13 +174,6 @@
     enable = false;
     acceleration = "cuda";
     listenAddress = "0.0.0.0:11434";
-  };
-
-  # Tabby
-  services.tabby = {
-    enable = false;
-    acceleration = "cuda";
-    model = "TabbyML/DeepseekCoder-6.7B";
   };
 
   # nix-ld
