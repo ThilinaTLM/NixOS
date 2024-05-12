@@ -156,7 +156,7 @@
   # KVM Virtualisation
   virtualisation = {
     libvirtd = {
-      enable = true;
+      enable = false;
       qemu = {
         swtpm.enable = true;
         ovmf.enable = true;
@@ -171,7 +171,7 @@
 
   # Ollama
   services.ollama = {
-    enable = false;
+    enable = true;
     acceleration = "cuda";
     listenAddress = "0.0.0.0:11434";
   };
@@ -204,6 +204,7 @@
     libGL
     fontconfig
     wayland
+    vesktop
 
     # clipboard tools
     xclip
@@ -216,9 +217,9 @@
     python311
     python311Packages.pip
     nodejs_18
-    temurin-bin-17
     gnumake
     gcc-unwrapped
+    temurin-bin-17
 
     # Virtualisation
     virt-manager
