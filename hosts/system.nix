@@ -23,7 +23,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernel.sysctl = {
-    "vm.swappiness" = 60;
+    "vm.swappiness" = 15;
   };
   boot.loader.grub = {
     enable = true;
@@ -250,18 +250,18 @@
       vistafonts
       ubuntu_font_family
     ];
-    fontconfig = {
-      enable = true;
-      antialias = true;
-      hinting = {
-        enable = true;
-        style = "full";
-        autohint = true;
-      };
-      subpixel = {
-        rgba = "rgb";
-      };
-    };
+    # fontconfig = {
+    #   enable = true;
+    #   antialias = true;
+    #   hinting = {
+    #     enable = true;
+    #     style = "full";
+    #     autohint = true;
+    #   };
+    #   subpixel = {
+    #     rgba = "rgb";
+    #   };
+    # };
   };
 
   system.stateVersion = "23.11";
