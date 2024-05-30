@@ -45,101 +45,11 @@ in
     mongodb-compass
     gh
     android-studio
-    (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [ 
-      (pkgs.stdenv.mkDerivation {
-        name = "continue";
-        version = "0.0.45";
-        src = pkgs.fetchurl { 
-          url = "https://downloads.marketplace.jetbrains.com/files/22707/523317/continue-intellij-extension-0.0.45.zip?updateId=523317&pluginId=22707&family=INTELLIJ"; 
-          hash = "sha256-ch9lrIQLnCPh2SpIvujHcNs7u6swt3eTt8R7WXRfXLY="; 
-        };
-        dontUnpack = true;
-        installPhase = ''
-          mkdir -p $out
-          cp $src $out
-        '';
-      })
-    ])
-    (jetbrains.plugins.addPlugins jetbrains.webstorm [ 
-      (pkgs.stdenv.mkDerivation {
-        name = "aws-toolkit--amazon-q-codewhisperer-and-more";
-        version = "2.19-241";
-        src = pkgs.fetchurl { 
-          url = "https://downloads.marketplace.jetbrains.com/files/11349/524976/aws-toolkit-jetbrains-2.19-241.zip?updateId=524976&pluginId=11349&family=INTELLIJ"; 
-          hash = "sha256-m1godpbg+IpGkCSNgHtSETXhoVGRnjrdNdD4WAbFnJ0="; 
-        };
-        dontUnpack = true;
-        installPhase = ''
-          mkdir -p $out
-          cp $src $out
-        '';
-      })
-      (pkgs.stdenv.mkDerivation {
-        name = "continue";
-        version = "0.0.45";
-        src = pkgs.fetchurl { 
-          url = "https://downloads.marketplace.jetbrains.com/files/22707/523317/continue-intellij-extension-0.0.45.zip?updateId=523317&pluginId=22707&family=INTELLIJ"; 
-          hash = "sha256-ch9lrIQLnCPh2SpIvujHcNs7u6swt3eTt8R7WXRfXLY="; 
-        };
-        dontUnpack = true;
-        installPhase = ''
-          mkdir -p $out
-          cp $src $out
-        '';
-      })
-     ])
+    (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [ "17718" ])
+    (jetbrains.plugins.addPlugins jetbrains.webstorm [ "17718" ])
     (jetbrains.plugins.addPlugins jetbrains.pycharm-professional [ "17718" ])
     (jetbrains.plugins.addPlugins jetbrains.rust-rover [ "17718" ])
     postman
-    # (vscode-with-extensions.override {
-    #   vscodeExtensions = with vscode-extensions; [
-    #     # essentials
-    #     ms-azuretools.vscode-docker
-    #     ms-vscode-remote.remote-ssh
-
-    #     # themes
-    #     pkief.material-icon-theme
-    #     github.github-vscode-theme
-
-    #     # formatters & linters
-    #     dbaeumer.vscode-eslint
-    #     foxundermoon.shell-format
-    #     esbenp.prettier-vscode
-    #     formulahendry.auto-rename-tag
-
-    #     # nix support
-    #     jnoortheen.nix-ide
-    #     arrterian.nix-env-selector
-    #     mkhl.direnv
-
-    #     # python
-    #     ms-python.python
-    #     ms-python.black-formatter
-    #     ms-python.vscode-pylance
-    #     ms-python.isort
-    #     ms-toolsai.jupyter
-    #     ms-toolsai.vscode-jupyter-slideshow
-    #     ms-toolsai.vscode-jupyter-cell-tags
-    #     ms-toolsai.jupyter-renderers
-    #     ms-toolsai.jupyter-keymap
-
-    #     # rust
-    #     rust-lang.rust-analyzer
-    #     vadimcn.vscode-lldb
-    #     serayuzgur.crates
-    #     tamasfe.even-better-toml
-
-    #     # tools
-    #     lokalise.i18n-ally
-    #   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-    #     {
-    #       name = "sourcegraph.cody-ai";
-    #       publisher = "Sourcegraph";
-    #       version = "1.17.1715526881";
-    #       sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
-    #     }
-    #   ];
-    # })
     vscode-fhs
 
     # Languages and Runtimes
