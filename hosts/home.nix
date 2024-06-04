@@ -41,7 +41,7 @@ in
     pipenv
 
     # Dev Tools
-    dbeaver
+    dbeaver-bin
     mongodb-compass
     gh
     android-studio

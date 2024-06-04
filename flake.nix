@@ -14,7 +14,7 @@
 
   inputs = {
     # nixpkgs channels
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     # home manager
     home-manager = {
