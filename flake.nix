@@ -13,10 +13,8 @@
   };
 
   inputs = {
-    # nixpkgs channels
     nixpkgs.url = "nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    # home manager
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,12 +53,16 @@
           })
         ];
       };
+      unstablePkgs = import nixpkgs-unstable { 
+        inherit system;
+        config = {
+          allowUnfree = true;
+          cudaSupport = true;
+        };
+      };
       nixAlien = import nix-alien {  };
     in
     {
-      packages = {
-        postmanCustom = import ./modules/postman/default.nix { inherit pkgs; };
-      };
       nixosConfigurations = {
         "TLM-NixOS" = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -77,7 +79,7 @@
                 useUserPackages = true;
                 users.${userName} = import ./hosts/home.nix;
                 extraSpecialArgs = {
-                  inherit pkgs nixAlien self;
+                  inherit pkgs nixAlien unstablePkgs self;
                 };
               };
             }

@@ -45,12 +45,12 @@ in
     mongodb-compass
     gh
     android-studio
-    (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [ "17718" ])
-    (jetbrains.plugins.addPlugins jetbrains.webstorm [ "17718" ])
-    (jetbrains.plugins.addPlugins jetbrains.pycharm-professional [ "17718" ])
-    (jetbrains.plugins.addPlugins jetbrains.rust-rover [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.idea-ultimate [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.webstorm [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.pycharm-professional [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.rust-rover [ "17718" ])
     postman
-    vscode-fhs
+    unstablePkgs.vscode-fhs
 
     # Languages and Runtimes
     gcc_multi
