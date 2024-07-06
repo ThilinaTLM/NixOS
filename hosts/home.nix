@@ -51,6 +51,7 @@ in
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.rust-rover [ "17718" ])
     postman
     unstablePkgs.vscode-fhs
+    unstablePkgs.zed-editor
 
     # Languages and Runtimes
     gcc_multi
