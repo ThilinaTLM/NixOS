@@ -20,7 +20,7 @@
   };
 
   # Kernel & Filesystems
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernel.sysctl = {
     "vm.swappiness" = 15;
@@ -216,7 +216,7 @@
     docker-compose
     python311
     python311Packages.pip
-    nodejs_18
+    nodejs_20
     gnumake
     gcc-unwrapped
     temurin-bin-17
@@ -250,18 +250,6 @@
       vistafonts
       ubuntu_font_family
     ];
-    # fontconfig = {
-    #   enable = true;
-    #   antialias = true;
-    #   hinting = {
-    #     enable = true;
-    #     style = "full";
-    #     autohint = true;
-    #   };
-    #   subpixel = {
-    #     rgba = "rgb";
-    #   };
-    # };
   };
 
   system.stateVersion = "23.11";
