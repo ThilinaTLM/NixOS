@@ -37,6 +37,7 @@ in
     bat
     eza
     fzf
+    fd
     megacmd
     pipenv
 

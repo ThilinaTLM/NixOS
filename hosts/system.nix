@@ -20,7 +20,7 @@
   };
 
   # Kernel & Filesystems
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernel.sysctl = {
     "vm.swappiness" = 15;
