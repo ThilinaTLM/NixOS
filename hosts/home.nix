@@ -161,6 +161,14 @@ in
 
       # prompt init
       eval "$(starship init zsh)"
+
+      # sync clipboard
+      function push_clipboard() {
+        wl-paste | ssh laptop_g_via_repeater 'pbcopy'
+      }
+      function pull_clipboard() {
+        ssh laptop_g_via_repeater 'pbpaste' | wl-copy
+      }
     '';
     plugins = [
       {
