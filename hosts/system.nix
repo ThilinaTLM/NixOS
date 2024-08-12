@@ -20,7 +20,7 @@
   };
 
   # Kernel & Filesystems
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_6_8;
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernel.sysctl = {
     "vm.swappiness" = 15;
@@ -40,7 +40,7 @@
   hardware.opengl = {
     enable = true;
     driSupport = true;
-    # driSupport32Bit = true;
+    driSupport32Bit = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
       vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
@@ -111,15 +111,12 @@
 
   # Enable sound with pipewire.
   sound.enable = true;
-  hardware.pulseaudio = {
-    enable = false;
-    # support32Bit = true;
-  };
+  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    # alsa.support32Bit = true;
+    alsa.support32Bit = true;
     pulse.enable = true;
   };
 
@@ -169,11 +166,11 @@
   programs.dconf.enable = true;
 
   # Ollama
-  # services.ollama = {
-  #   enable = true;
-  #   acceleration = "cuda";
-  #   listenAddress = "0.0.0.0:11434";
-  # };
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+    listenAddress = "0.0.0.0:11434";
+  };
 
   # nix-ld
   programs.nix-ld.enable = true;
