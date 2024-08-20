@@ -175,6 +175,14 @@
   # nix-ld
   programs.nix-ld.enable = true;
 
+  # environment.variables = {
+  #   LD_LIBRARY_PATH = "$LD_LIBRARY_PATH:${ with pkgs; lib.makeLibraryPath [
+  #     wayland
+  #     libxkbcommon
+  #     fontconfig
+  #   ]}";
+  # };
+
   # System packages
   environment.systemPackages = with pkgs; [
     # Drivers

@@ -25,6 +25,7 @@ in
     direnv
     cloudflared
     qpwgraph
+    shellify
 
     # Multimedia
     stremio
@@ -43,7 +44,6 @@ in
 
     # Dev Tools
     dbeaver-bin
-    mongodb-compass
     gh
     android-studio
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.idea-ultimate [ "17718" ])
@@ -73,11 +73,6 @@ in
         pylint
         autopep8
         yapf
-        pynvim
-        numpy
-        pandas
-        matplotlib
-        faker
       ]
     ))
   ];
@@ -183,6 +178,7 @@ in
       }
     ];
   };
+
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
