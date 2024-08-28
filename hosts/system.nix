@@ -20,7 +20,7 @@
   };
 
   # Kernel & Filesystems
-  boot.kernelPackages = pkgs.linuxPackages_6_8;
+  boot.kernelPackages = pkgs.linuxPackages;
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernel.sysctl = {
     "vm.swappiness" = 15;
@@ -174,14 +174,6 @@
 
   # nix-ld
   programs.nix-ld.enable = true;
-
-  # environment.variables = {
-  #   LD_LIBRARY_PATH = "$LD_LIBRARY_PATH:${ with pkgs; lib.makeLibraryPath [
-  #     wayland
-  #     libxkbcommon
-  #     fontconfig
-  #   ]}";
-  # };
 
   # System packages
   environment.systemPackages = with pkgs; [
