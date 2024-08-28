@@ -26,6 +26,7 @@ in
     cloudflared
     qpwgraph
     shellify
+    appimage-run
 
     # Multimedia
     stremio
@@ -48,7 +49,7 @@ in
     android-studio
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.idea-ultimate [ "17718" ])
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.webstorm [ "17718" ])
-    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.pycharm-professional [ "17718" ])
+    (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.goland [ "17718" ])
     (unstablePkgs.jetbrains.plugins.addPlugins unstablePkgs.jetbrains.rust-rover [ "17718" ])
     postman
     unstablePkgs.vscode-fhs
@@ -86,10 +87,6 @@ in
     extraConfig = {
       init.defaultBranch = "main";
     };
-  };
-  programs.gh = {
-    enable = true;
-    extensions = [ pkgs.gh-dash ];
   };
 
   # Aria2 Configuration
@@ -129,7 +126,7 @@ in
       cat = "bat";
       ls = "eza --icons --group-directories-first";
 
-      # git 
+      # git
       gcm = "git commit -m ";
       gaa = "git add .";
       gss = "git status";
